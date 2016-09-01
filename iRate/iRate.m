@@ -1234,4 +1234,21 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
     }
 }
 
+- (void)reset
+{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults removeObjectForKey:iRateRatedVersionKey];
+  [defaults removeObjectForKey:iRateDeclinedVersionKey];
+  [defaults removeObjectForKey:iRateLastRemindedKey];
+  [defaults removeObjectForKey:iRateLastVersionUsedKey];
+  [defaults removeObjectForKey:iRateFirstUsedKey];
+  [defaults removeObjectForKey:iRateUseCountKey];
+  [defaults removeObjectForKey:iRateLastRemindedKey];
+  [defaults removeObjectForKey:iRateEventCountKey];
+  [defaults synchronize];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self applicationLaunched];
+  });
+}
+
 @end
